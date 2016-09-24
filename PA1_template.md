@@ -1,5 +1,6 @@
     setwd('/Users/emmasun/Desktop/data science/reproducible research')
     library(ggplot2)
+    library(lattice)
     knitr::opts_chunk$set(echo = TRUE)
 
 Loading and preprocessing the data
@@ -18,7 +19,7 @@ What is mean total number of steps taken per day?
 
 ### 2.Make a histogram of the total number of steps taken each day
 
-    qplot(total_steps, binwidth=1000, xlab="total number of steps taken per day")
+    histogram(total_steps, breaks = 50, col = "green", xlab="total number of steps taken per day", ylab = "Frenquency", main = "Histogram of total steps")
 
 ![](PA1_template_files/figure-markdown_strict/unnamed-chunk-4-1.png)
 
@@ -39,7 +40,7 @@ What is the average daily activity pattern?
 
 ### 1.Make a time series plot of the 5-minute interval (x-axis) and the average number of steps taken, averaged across all days (y-axis)
 
-    ggplot(data=Aver, aes(x=interval, y=steps)) + geom_line() + xlab("5-minute interval") + ylab("average number of steps taken")
+    plot(Aver, type = 'l', col = "green", xlab = "5-minute interval", ylab = "average number of steps taken", main = "Time series")
 
 ![](PA1_template_files/figure-markdown_strict/unnamed-chunk-7-1.png)
 
@@ -78,18 +79,18 @@ Imputing missing values
 
 ### 3.The impact of imputing missing data on the estimates of the total daily number of steps?
 
-    total.steps <- tapply(filled_data$steps, filled_data$date, FUN=sum)
-    qplot(total_steps, binwidth=1000, xlab="total number of steps taken each day")
+    total_steps <- tapply(filled_data$steps, filled_data$date, FUN=sum)
+    histogram(total_steps, breaks = 50, col = "green", xlab = "Step/day", ylab = "Frequency", main = "new histogram")
 
 ![](PA1_template_files/figure-markdown_strict/unnamed-chunk-12-1.png)
 
     mean(total_steps)
 
-    ## [1] 9354.23
+    ## [1] 10766.19
 
     median(total_steps)
 
-    ## [1] 10395
+    ## [1] 10766.19
 
 Answer: Mean and median values are higher after imputing missing data.
 The reason is that after replacing missing steps values with the mean
